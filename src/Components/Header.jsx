@@ -47,6 +47,12 @@ export default function Header() {
             >
               አገልግሎቶች
             </li>
+            <li
+              onClick={() => navigate("/login")}
+              className="text-white mt-2 w-full hover:bg-blue-900  cursor-pointer bg-zinc-300 bg-opacity-10 h-[50px] flex items-center justify-center"
+            >
+              ውጣ
+            </li>
           </ul>
         </div>
       </div>

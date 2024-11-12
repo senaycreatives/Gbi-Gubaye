@@ -30,7 +30,7 @@ const Carousel = () => {
           .map((item) => (
             <div
               key={item}
-              onClick={() => navigate("/gbigubage")}
+              onClick={() => navigate("/gbigubae/" + item)}
               className="w-[300px] shrink-0 m-[5px] hover:scale-105 hover:bg-blue-900 transform duration-300 h-[200px] relative bg-blue-500 p-5 rounded-[10px] shadow-md flex flex-col items-center justify-center"
             >
               <p className="text-white text-[20px] font-bold">

@@ -2,8 +2,10 @@ import tsega from "../assets/tsga.jpg";
 import { Button, TextField } from "@mui/material";
 import IsLoading from "../Components/IsLoading";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [isloading, setisloading] = useState(false);
   return (
     <div className="relative z-[1] w-screen h-screen bg-white overflow-hidden">
@@ -47,6 +49,7 @@ function Login() {
                   setTimeout(() => {
                     setisloading(false);
                   }, 3000);
+                  navigate("/");
                 }}
                 sx={{
                   mt: 2,

@@ -1,6 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 
-export default function Teachers() {
+export default function GbiGubae() {
   // Define columns for the DataGrid
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -24,7 +24,16 @@ export default function Teachers() {
   return (
     <div className="flex flex-1 flex-col p-5 overflow-hidden">
       <div className="w-full h-[50px] bg-white flex items-center justify-start mb-5">
-        <p className="text-[30px] font-bold text-center">የ መምህራን ዝርዝር</p>
+        <div
+          onClick={() => {
+            window.history.back();
+          }}
+          className="w-[40px]  mr-10 font-bold h-[40px] bg-zinc-200 rounded-full flex items-center justify-center"
+        >
+          {" "}
+          {"<"}{" "}
+        </div>{" "}
+        <p className="text-[30px] font-bold text-center">የ አገልግሎቶች ዝርዝር</p>
       </div>
       <div style={{ height: 450, width: "100%" }} className="bg-white">
         <DataGrid
