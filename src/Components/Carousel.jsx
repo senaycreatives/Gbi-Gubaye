@@ -1,44 +1,47 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import metro from "../assets/Meteor.svg";
+import useFetchGbiGubae from "../Hooks/UseFetchGbiGubae";
 
 const Carousel = () => {
   const navigate = useNavigate();
-  const items = [1, 2, 3, 4, 5, 6, 7, 8]; // Your data items
+  const { data } = useFetchGbiGubae();
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerView = 3; // Adjust this based on your design
+  const itemsPerView = 3;
 
   const nextSlide = () => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex + 1) % Math.ceil(items.length / itemsPerView)
+      (prevIndex) => (prevIndex + 1) % Math.ceil(data?.length / itemsPerView)
     );
   };
 
   const prevSlide = () => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + Math.ceil(items.length / itemsPerView)) %
-        Math.ceil(items.length / itemsPerView)
+        (prevIndex - 1 + Math.ceil(data?.length / itemsPerView)) %
+        Math.ceil(data?.length / itemsPerView)
     );
   };
-
+  console.log(data);
   return (
     <div className="relative w-full">
       <div className="flex flex-row items-center justify-center overflow-hidden">
-        {items
-          .slice(currentIndex * itemsPerView, (currentIndex + 1) * itemsPerView)
+        {data
+          ?.slice(
+            currentIndex * itemsPerView,
+            (currentIndex + 1) * itemsPerView
+          )
           .map((item) => (
             <div
               key={item}
-              onClick={() => navigate("/gbigubae/" + item)}
+              onClick={() => navigate("/gbigubae/" + item._id)}
               className="w-[300px] shrink-0 m-[5px] hover:scale-105 hover:bg-blue-900 transform duration-300 h-[200px] relative bg-blue-500 p-5 rounded-[10px] shadow-md flex flex-col items-center justify-center"
             >
-              <p className="text-white text-[20px] font-bold">
-                መከ/ደብ/ኢ/ግቢ-ጉባኤ{item}
-              </p>
+              <p className="text-white text-[20px] font-bold">{item.name}</p>
               <div className="w-full flex-col flex items-center justify-center">
                 <div className="flex text-[20px] flex-row text-orange-200 font-bold">
-                  200 አባላት
+                  {item.abalCount} አባላት
                 </div>
               </div>
               <img

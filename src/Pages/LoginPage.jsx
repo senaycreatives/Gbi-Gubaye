@@ -3,12 +3,59 @@ import { Button, TextField } from "@mui/material";
 import IsLoading from "../Components/IsLoading";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import ResponsePopup from "../Components/ResponsePopup";
+import axios from "axios";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 function Login() {
   const navigate = useNavigate();
-  const [isloading, setisloading] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const signIn = useSignIn();
+
+  const login = useMutation({
+    mutationFn: async (data) => {
+      console.log(data);
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        data
+      );
+
+      return response;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      if (
+        signIn({
+          auth: {
+            token: data.data.accessToken,
+            type: "Bearer",
+          },
+
+          userState: {
+            name: "React User",
+            uid: 123456,
+          },
+        })
+      ) {
+        navigate("/");
+      }
+    },
+    onError: (error) => {
+      console.log(error.response.data.error);
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+    },
+  });
+
   return (
     <div className="relative z-[1] w-screen h-screen bg-white overflow-hidden">
+      {error && <ResponsePopup type={"Error"} message={error} />}
       <div className="flex flex-row absolute z-40 justify-between items-center h-screen w-screen px-4">
         <div className="w-1/2 h-full flex flex-col items-center justify-center z-[32]">
           <img
@@ -29,6 +76,8 @@ function Login() {
                 type="email"
                 variant="outlined"
                 fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 margin="normal"
                 required
               />
@@ -36,6 +85,8 @@ function Login() {
                 label="Password"
                 type="password"
                 variant="outlined"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 fullWidth
                 margin="normal"
                 required
@@ -45,11 +96,7 @@ function Login() {
                 color="primary"
                 fullWidth
                 onClick={() => {
-                  setisloading(true);
-                  setTimeout(() => {
-                    setisloading(false);
-                  }, 3000);
-                  navigate("/");
+                  login.mutate({ email, password });
                 }}
                 sx={{
                   mt: 2,
@@ -72,7 +119,7 @@ function Login() {
       />
       <div className="w-[300px] h-[300px] z-30 absolute -top-[150px] -right-[150px] rotate-45 bg-blue-800 "></div>
       <div className="w-[300px] h-[300px] z-30 absolute -bottom-[150px] -left-[150px] rotate-45 bg-blue-800 "></div>
-      {isloading && <IsLoading />}
+      {login.isLoading && <IsLoading />}
     </div>
   );
 }
