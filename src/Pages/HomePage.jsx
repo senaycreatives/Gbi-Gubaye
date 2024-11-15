@@ -130,10 +130,10 @@ export default function HomePage() {
   });
   const handleAddStaff = () => {
     addStaff.mutate({
-      name: staffName,
-      phone: staffPhone,
+      fullName: staffName,
+      phoneNo: staffPhone,
       email: staffEmail,
-      type: staffType,
+      jobType: staffType,
     });
   };
   const addTeacher = useMutation({
@@ -164,10 +164,10 @@ export default function HomePage() {
 
   const handleAddTeacher = () => {
     addTeacher.mutate({
-      name: teacherName,
-      phone: teacherPhone,
+      fullName: teacherName,
+      phoneNo: teacherPhone,
       email: teacherEmail,
-      type: teacherType,
+      subject: teacherType,
     });
   };
   const addGbigubae = useMutation({
@@ -203,6 +203,8 @@ export default function HomePage() {
       place: gbigubaeLocation,
     });
   };
+  console.log(data);
+  console.log(gbi);
 
   return (
     <div className="flex flex-1 flex-col p-5 overflow-hidden">

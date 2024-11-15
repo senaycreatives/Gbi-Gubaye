@@ -41,11 +41,12 @@ export default function Header() {
             >
               ስታፍ
             </li>
+
             <li
-              onClick={() => navigate("/services")}
+              onClick={() => navigate("/gbilist")}
               className="text-white mt-2 w-full hover:bg-blue-900  cursor-pointer bg-zinc-300 bg-opacity-10 h-[50px] flex items-center justify-center"
             >
-              አገልግሎቶች
+              ግቢ ጉባኤ አና ሚና
             </li>
             <li
               onClick={() => navigate("/login")}

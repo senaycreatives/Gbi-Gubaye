@@ -10,6 +10,8 @@ import Staffs from "./Pages/StafPage";
 import ServicePage from "./Pages/ServicePage";
 import GbiGubae from "./Pages/GbiGubae";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
+import GbiGubaeLists from "./Pages/GbiGubaeLists";
+import Gallary from "./Pages/Gallary";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/staffs" element={<Staffs />} />
           <Route path="/services" element={<ServicePage />} />
           <Route path="/gbigubae/:id" element={<GbiGubae />} />
+          <Route path="/gbiList" element={<GbiGubaeLists />} />
+          <Route path="/gbigubae/:id/gallary" element={<Gallary />} />
         </Route>
       </Routes>
     </div>

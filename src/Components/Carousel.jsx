@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import metro from "../assets/Meteor.svg";
 import useFetchGbiGubae from "../Hooks/UseFetchGbiGubae";
+import { CircularProgress } from "@mui/material";
 
 const Carousel = () => {
   const navigate = useNavigate();
-  const { data } = useFetchGbiGubae();
+  const { data, isLoading } = useFetchGbiGubae();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerView = 3;
@@ -51,6 +52,11 @@ const Carousel = () => {
               />
             </div>
           ))}
+        {isLoading && (
+          <div className="h-[200px] flex items-center justify-center">
+            <CircularProgress color="primary" size={100} />
+          </div>
+        )}
       </div>
       <button
         onClick={prevSlide}
